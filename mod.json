@@ -1,0 +1,10 @@
+﻿{
+    "Id": "batteryMod",
+    "DisplayName": "Battery Indicator",
+    "Author": "Jan Marucha",
+    "Version": "1.0.0",
+    "Enable": true,
+    "AssemblyName": "batteryMod.dll",
+    "VersionDependencies": {},
+    "Game": "Subnautica"
+}
