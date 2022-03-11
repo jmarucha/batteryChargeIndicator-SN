@@ -1,8 +1,8 @@
 ﻿{
-    "Id": "batteryMod",
+    "Id": "batteryIndicator",
     "DisplayName": "Battery Indicator",
     "Author": "Jan Marucha",
-    "Version": "0.1.0",
+    "Version": "0.1.1",
     "Enable": true,
     "AssemblyName": "batteryMod.dll",
     "VersionDependencies": {

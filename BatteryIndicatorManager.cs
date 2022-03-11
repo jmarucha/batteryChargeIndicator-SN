@@ -15,11 +15,19 @@ namespace batteryMod
         void Awake()
         {
             GUIManager = GetComponent<uGUI_QuickSlots>();
-            target = GUIManager.target as QuickSlots;
+            target = Inventory.main.quickSlots;
+        }
+        public void UpdateAll()
+        {
+            for (int i = 0; i < target.binding.Length; ++i)
+            {
+                if (target.binding[i] != null) UpdateSlot(i);
+            }
         }
 
         public void UpdateSlot(int slotID)
         {
+            if (!enabled) return;
             InventoryItem item = target.binding[slotID];
             IBatteryIndicator batteryIndicator = GUIManager.icons[slotID].GetComponent<IBatteryIndicator>();
             if (item == null)
@@ -41,6 +49,10 @@ namespace batteryMod
         {
             if (target.activeSlot != -1)
                 UpdateSlot(target.activeSlot);
+        }
+        void OnEnable()
+        {
+            UpdateAll();
         }
     }
 }

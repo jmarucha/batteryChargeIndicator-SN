@@ -11,12 +11,16 @@ namespace batteryMod
     {
         [HarmonyPatch(typeof(uGUI_QuickSlots))]
         [HarmonyPatch(nameof(uGUI_QuickSlots.Init))]
-        internal class PatchCloseAction
+        internal class PatchGuiInit
         {
             [HarmonyPostfix]
-            public static void Postfix(uGUI_QuickSlots __instance)
+            public static void Postfix(uGUI_QuickSlots __instance, IQuickSlots newTarget)
             {
-                __instance.gameObject.AddComponent<BatteryIndicatorManager>();
+                if (__instance.gameObject.GetComponent<BatteryIndicatorManager>() == null)
+                {
+                    __instance.gameObject.AddComponent<BatteryIndicatorManager>();
+                }
+                __instance.gameObject.GetComponent<BatteryIndicatorManager>().enabled = (newTarget == Inventory.main.quickSlots);
             }
         }
         [HarmonyPatch(typeof(uGUI_QuickSlots))]

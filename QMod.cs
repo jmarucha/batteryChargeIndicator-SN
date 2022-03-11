@@ -56,8 +56,8 @@ namespace batteryMod
             string s = (string)reader.Value;
             s = s.TrimStart('#');
             int r = int.Parse(s.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
-            int g = int.Parse(s.Substring(2, 4), System.Globalization.NumberStyles.HexNumber);
-            int b = int.Parse(s.Substring(4, 6), System.Globalization.NumberStyles.HexNumber);
+            int g = int.Parse(s.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+            int b = int.Parse(s.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
             return new Color(r / 255f, g / 255f, b / 255f);
         }
 
