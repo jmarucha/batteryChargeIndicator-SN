@@ -18,7 +18,8 @@ namespace batteryMod
         public enum Style
         {
             Default,
-            Text
+            Text,
+            BZ
         };
         public Style style = Style.Default;
         public struct ColorConfig
@@ -37,6 +38,7 @@ namespace batteryMod
             new ColorConfig(1.00f, Color.green)
         };
         public bool useGradient = false;
+        public bool showOnBatterySelector = true;
     }
     public class ColorConverter : JsonConverter
     {
@@ -84,6 +86,14 @@ namespace batteryMod
                 new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f));
             BatteryIndicatorDefault.bgSprite = Sprite.Create(ImageUtils.LoadTextureFromFile(Path.Combine(assetPath,"default_indicator_bg.png")),
                 new Rect(0, 0, 128, 128), new Vector2(0.5f, 0.5f));
+
+            BatteryIndicatorBZ.fgSprite = Sprite.Create(ImageUtils.LoadTextureFromFile(Path.Combine(assetPath, "bz_indicator.png")),
+                new Rect(0, 0, 35, 67), new Vector2(0.5f, 0.5f));
+            BatteryIndicatorBZ.bgSprite = Sprite.Create(ImageUtils.LoadTextureFromFile(Path.Combine(assetPath, "bz_indicator_bg.png")),
+                new Rect(0, 0, 35, 67), new Vector2(0.5f, 0.5f));
+            if (config.style == Config.Style.BZ)
+                BatteryIndicatorManager.replacementSelector = Sprite.Create(ImageUtils.LoadTextureFromFile(Path.Combine(assetPath, "bz_indicator_selector.png")),
+                new Rect(0, 0, 60, 60), new Vector2(0.5f, 0.5f));
         }
     }
 }

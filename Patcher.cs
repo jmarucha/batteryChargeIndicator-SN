@@ -49,8 +49,30 @@ namespace batteryMod
                         case Config.Style.Text:
                             __instance.gameObject.AddComponent<BatteryIndicatorText>();
                             break;
+                        case Config.Style.BZ:
+                            __instance.gameObject.AddComponent<BatteryIndicatorBZ>();
+                            break;
                     }
                 }
+            }
+        }
+        [HarmonyPatch(typeof(uGUI_ItemSelector))]
+        [HarmonyPatch(nameof(uGUI_ItemSelector.Awake))]
+        internal class PatchItemSelector
+        {
+            public static void Postfix(uGUI_ItemSelector __instance)
+            {
+                __instance.gameObject.AddComponent<ItemSelectorManager>();
+            }
+        }
+        [HarmonyPatch(typeof(uGUI_ItemSelector))]
+        [HarmonyPatch(nameof(uGUI_ItemSelector.CreateIcons))]
+        internal class PatchItemSelectorCreation
+        {
+            public static void Postfix(uGUI_ItemSelector __instance)
+            {
+                if (QMod.config.showOnBatterySelector)
+                    __instance.gameObject.GetComponent<ItemSelectorManager>().RenderIndicator();
             }
         }
     }

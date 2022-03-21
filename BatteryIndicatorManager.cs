@@ -12,6 +12,8 @@ namespace batteryMod
     {
         uGUI_QuickSlots GUIManager;
         QuickSlots target;
+        public static Sprite replacementSelector;
+
         void Awake()
         {
             GUIManager = GetComponent<uGUI_QuickSlots>();
@@ -22,6 +24,29 @@ namespace batteryMod
             for (int i = 0; i < target.binding.Length; ++i)
             {
                 if (target.binding[i] != null) UpdateSlot(i);
+            }
+        }
+        private void AdjustSelector(int slotID)
+        {
+            if (replacementSelector == null) return;
+            if (!enabled) return;
+            InventoryItem item = target.binding[slotID];
+            if (item != null)
+            {
+                EnergyMixin e = item.item.GetComponent<EnergyMixin>();
+                if (e!= null && replacementSelector != null)
+                {
+                    GUIManager.selector.sprite = replacementSelector;
+                } else
+                {
+
+                    GUIManager.selector.sprite = GUIManager.spriteSelected;
+                }
+            }
+            else
+            {
+
+                GUIManager.selector.sprite = GUIManager.spriteSelected;
             }
         }
 
@@ -48,7 +73,10 @@ namespace batteryMod
         void Update()
         {
             if (target.activeSlot != -1)
+            {
                 UpdateSlot(target.activeSlot);
+                AdjustSelector(target.activeSlot);
+            }
         }
         void OnEnable()
         {
